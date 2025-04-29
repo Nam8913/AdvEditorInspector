@@ -42,7 +42,7 @@ public class CustomConsoleWindow : EditorWindow
 
     private void OnEnable()
     {
-        Application.logMessageReceived += HandleLog;
+        //Application.logMessageReceived += HandleLog;
 
         // Khởi tạo filter channel
         _channelFilters.Clear();
@@ -58,7 +58,7 @@ public class CustomConsoleWindow : EditorWindow
 
     private void OnDisable()
     {
-        Application.logMessageReceived -= HandleLog;
+        //Application.logMessageReceived -= HandleLog;
     }
 
     private void HandleLog(string logString, string stackTrace, LogType type)
@@ -106,9 +106,22 @@ public class CustomConsoleWindow : EditorWindow
 
         Repaint();
     }
-
+    void GetLog()
+    {
+       
+        if(Custom.GetLogs.Count > 0)
+        {
+            while(Custom.GetLogs.Count > 0)
+            {
+                var log = Custom.GetLogs.Dequeue();
+                HandleLog(log.msg, log.stackTrace, log.GetLogType());
+            }
+        }
+    }
+    
     private void OnGUI()
     {
+        GetLog();
         // Lazy-init styles ở đây, GUI system đã sẵn sàng
         if (_logStyle == null)
         {
