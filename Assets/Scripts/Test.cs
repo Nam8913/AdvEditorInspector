@@ -13,7 +13,8 @@ public class Test : MonoBehaviour
     public float testFloat = 0.0f;
     private readonly List<IAsyncInitCall> systems = new();
 
-    public Color testColor = Color.white;
+    public Color testColor1;
+    public CustomColor testColor = new CustomColor(Color.white);
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
